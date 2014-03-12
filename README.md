@@ -6,7 +6,7 @@ Next Generation E-mail Application
 The objective of this project is to write an e-mail open web application that treats e-mails not only as a list of messages but also as a list of things to do.
 
 Whenever the user opens the application, they can choose between seeing:
-1. The Todo List (i.e. messages already read);
+1. The Todo List;
 2. The Inbox
 
 Choosing 1. shows a list of messages already read, sorted by deadline before action must be taken.
