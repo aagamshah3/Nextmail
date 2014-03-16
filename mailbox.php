@@ -41,7 +41,6 @@ if ($check->Nmsgs != 0){
 	$flag = newLimits($ll,$ul,$check->Nmsgs); // Calculate new forward and backward upper and lower limits
 	
 	$overviews = imap_fetch_overview($mbox,"{$ll}:{$ul}");
-	echo "LL= ".$ll." UL= ".$ul." NLL= ".$flag[1]."  NUL= ".$flag[2]." PLL= ".$flag[3]."  PUL= ".$flag[4];
 	$overviews = array_reverse($overviews);             
     foreach($overviews as $overview){
 	 if($overview->seen==0)
