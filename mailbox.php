@@ -6,6 +6,7 @@ if(isset($_GET['mailbox']))
     $mailbox=$_GET['mailbox'];
 else
     $mailbox="INBOX";
+$next=0;$prev=0; // flags to display the next and previous buttons
 $mailbox_server = "{".$server."}".$mailbox; //set in headers/header.php
 $mbox = imap_open($mailbox_server, $username, $password, NULL, 1, array('DISABLE_AUTHENTICATOR' => 'GSSAPI'))or die(imap_last_error());
 
@@ -21,12 +22,26 @@ $check = imap_check($mbox);
 
 <?php   
 if ($check->Nmsgs != 0){
-	$total=$check->Nmsgs;
-	if($total>40)
-	$total=$total-20; // Display only latest 20 mails
+
+	$temp=$check->Nmsgs;
+	if($temp>40)
+	$temp=$temp-20; // Display only latest 20 mails
 	else
-	$total=1;//Display all mails
-	$overviews = imap_fetch_overview($mbox,"{$total}:{$check->Nmsgs}");
+	$temp=1;//Display all mails
+	
+	if(isset($_GET['ul'])&&isset($_GET['ll'])) {
+	$ul = $_GET['ul'];
+	$ll = $_GET['ll'];
+	}
+	else {
+	$ul = $check->Nmsgs;
+	$ll = $temp;
+	}
+	
+	$flag = newLimits($ll,$ul,$check->Nmsgs); // Calculate new forward and backward upper and lower limits
+	
+	$overviews = imap_fetch_overview($mbox,"{$ll}:{$ul}");
+	echo "LL= ".$ll." UL= ".$ul." NLL= ".$flag[1]."  NUL= ".$flag[2]." PLL= ".$flag[3]."  PUL= ".$flag[4];
 	$overviews = array_reverse($overviews);             
     foreach($overviews as $overview){
 	 if($overview->seen==0)
@@ -52,21 +67,12 @@ if ($check->Nmsgs != 0){
 					
 <?php
     }
+	echo '</ul></div>';
+	displayButtons($flag,$mailbox); // Display Previous and Next Buttons
 	}
 	else{
 	imap_close($mbox);
-    echo '  <li data-theme="c"> No Message to Display </li>';
+    echo '  <li data-theme="c"> No Message to Display </li></ul></div>';
 	}
-	?>
-
-
-
-
-
-
-                </ul>
-            </div>
-
-<?php 
-include_once("footer.php");
+	include_once("footer.php");
 ?>
