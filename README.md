@@ -24,6 +24,14 @@ Features:
 6. Mark Messages as Done and Remove the Tag
 7. Currently Supports Gmail and Yahoo
 
+Implementation
+--------------
+
+* The Email Client is written in PHP
+* JQuery Mobile for Responsive Design
+* Mail Protocol Used : IMAP
+* The To Do List uses IndexedDB
+
 
 This is a Mozilla Student Project (https://github.com/Yoric/Mozilla-Student-Projects/issues/60) being Mentored by Mr. Antoine Turmel (:GeekShadow)
 
