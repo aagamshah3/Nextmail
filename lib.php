@@ -79,7 +79,7 @@ $pul=0;$pll=0;
 $f=1;//Only "Next" Button Case
 	if($ll < 20) {
 	$nul=0;$nll=0;
-	$f=4;// Show NO Buttons - As there are 
+	$f=4;// Show NO Buttons - As there are less than 20 mails.
 	}
 }
 else if($nul < 1) { // Reached the LAST(NOT LATEST) 20 (or less) messages, So No "Next" Button
